@@ -1,29 +1,17 @@
-* {
-  box-sizing: border-box;
-}
 main {
+  margin: 0 auto;
+  width: 80vw;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-main .elements {
-  width: 100%;
-  max-width: 768px;
-  border: 1px solid #ccc;
-  margin: 1rem 0 1rem 0;
-}
 
-.elements {
-  display: flex;
-  flex-wrap: wrap;
-  text-align: center;
-}
-
-main .elements .item {
-  padding: 15px;
-  width: 50%;
-  border-bottom: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+.container-books {
+  display: grid;
+  gap: 3em 2em;
+  grid-template-columns: repeat(auto-fit, minmax(18vw, 1fr));
+  min-height: 80vh;
+  background-color: #fff;
 }
 
 .pagenumbers {
