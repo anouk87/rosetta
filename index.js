@@ -209,8 +209,37 @@ const dataToDisplay = [
   },
 ];
 
-const list_element = document.querySelector(".container-books");
-const pagination_element = document.querySelector(".pagenumbers");
+const elements = {
+  searchQuery: document.querySelector(".search-field"),
+  orderBy: document.querySelector(".order-by"),
+  searchType: document.querySelector(".select-type"),
+  filterLanguages: document.querySelector(".search-languages"),
+  booksContainer: document.querySelector(".container-books"),
+  result: document.querySelector(".result"),
+  fetchBtn: document.querySelector(".fetch-values"),
+  container: document.querySelector(".container"),
+  filters: document.querySelector(".filters"),
+  buttonUp: document.querySelector(".button_up"),
+  searchHeader: document.getElementById("header"),
+  spanx: document.querySelector(".spanX"),
+  navbar: document.querySelector(".header-nav"),
+  pagination: document.querySelector(".pagination"),
+};
+
+const limitResults = (str, limit) => {
+  const res = [];
+
+  if (str.length > limit) {
+    str.split(" ").reduce((acc, cur) => {
+      if (acc + cur.length < limit) {
+        res.push(cur);
+      }
+      return acc + cur.length;
+    }, 0);
+    return `${res.join(" ")}...`;
+  }
+  return str;
+};
 
 let current_page = 1; // starting page
 let rows = 8;
@@ -221,21 +250,6 @@ function displayList(items, wrapper, rows_per_page, page) {
   let start = rows_per_page * page; // get the specific amount of item we need in each page
   let end = start + rows_per_page;
   let paginatedItems = items.slice(start, end); // to get an array out of the displayed items in each page
-
-  const limitResults = (str, limit) => {
-    const res = [];
-
-    if (str.length > limit) {
-      str.split(" ").reduce((acc, cur) => {
-        if (acc + cur.length < limit) {
-          res.push(cur);
-        }
-        return acc + cur.length;
-      }, 0);
-      return `${res.join(" ")}...`;
-    }
-    return str;
-  };
 
   // _________creating a div for each item _________________
 
@@ -290,11 +304,11 @@ function paginationButton(page, items) {
 
   button.addEventListener("click", () => {
     current_page = page;
-    displayList(items, list_element, rows, current_page);
+    displayList(items, elements.booksContainer, rows, current_page);
   });
 
   return button;
 }
 
-displayList(dataToDisplay, list_element, rows, current_page);
-setupPagination(dataToDisplay, pagination_element, rows);
+displayList(dataToDisplay, elements.booksContainer, rows, current_page);
+setupPagination(dataToDisplay, elements.pagination, rows);
